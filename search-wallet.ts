@@ -3,7 +3,7 @@ import { airdropIfRequired } from '@solana-developers/helpers';
 const connection = new Connection('https://api.mainnet-beta.solana.com');
 
 async function checkWalletBalance(pubkey: string) {
-  
+  try {
     const walletAddress = new PublicKey(pubkey);
 
     const accountInfo = await connection.getAccountInfo(walletAddress);
@@ -12,13 +12,15 @@ async function checkWalletBalance(pubkey: string) {
       const balance = balanceLamport / LAMPORTS_PER_SOL;
       console.log(`💰 Finished! The balance for the wallet at address ${pubkey} is ${balance} SOL!`);
     } else {
-      console.log(`⚠️ Account info not available for address ${pubkey}.`);
+      console.log(`⚠️Account info not available for address ${pubkey}.`);
     }
-
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
 //  the wallet addresses to check
-const walletsToCheckonMainnet = ['toly.sol', 'shaq.sol', 'mccann.sol'];
+const walletsToCheckonMainnet = ['86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY', 'gacMrsrxNisAhCfgsUAVbwmTC3w9nJB6NychLAnTQFv', 'JCZjJcmuWidrj5DwuJBxwqHx7zRfiBAp6nCLq3zYmBxd'];
 // const walletsToCheckonDevnet : string[] = [];
 
 // for(let i = 0; i < 4; i++){
